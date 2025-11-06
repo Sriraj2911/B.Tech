@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Karnaugh Map Solver for Truth Tables
+    </title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="scripts.js" defer></script>
+</head>
+
+<body>
+    <h1 align="center">KARNAUGH MAP SOLVER FOR TRUTH TABLES</h1>
+    <p>Click on an output value in the truth table/k-map to switch the value among 0, 1, and X.</p>
+
+    <label for="inputBits">Number of input bits:</label>
+    <input type="number" id="inputBits" value="2" min="2" max="5" />
+    <button onclick="generateTruthTable()">Random Truth Table</button>
+
+    <div id="truthTableContainer"></div>
+    
+    <p></p> <!-- Blank line between table and the buttons -->
+    
+    <!--ALL=1 button-->
+    <button id="ALL1" onclick="generateOnes()" style="background-color: greenyellow; color: rgb(255, 255, 255); width: 70px; text-align: center; border: greenyellow; border-radius: 25px; font-size: 20px; display: inline-block;">ALL=1</button>
+    <!--ALL=0 button-->
+    <button id="ALL0" onclick="generateZeroes()" style="background-color: red; color: rgb(255, 255, 255); width: 70px; text-align: center; border: red; border-radius: 25px; font-size: 20px; display: inline-block;">ALL=0</button>
+
+    <h2>SOLUTION</h2>
+    
+    <h3>Karnaugh Map</h3>
+    <div id="kmapContainer"></div>
+
+
+    <select id="expressionFormat">
+        <option value="" disabled selected>Select the logical expression format</option>
+        <option value="SOP">SOP</option>
+        <option value="POS">POS</option>
+    </select>
+
+    <p id="output"></p> <!-- where the expression will appear -->
+
+    <h3>Generated Verilog</h3>
+    <div id="verilogBox">
+        <pre id="verilogOutput"></pre>
+    </div>
+    <h3>Generated Testbench</h3>
+    <div id="tbBox">
+        <pre id="testbenchOutput"></pre>
+    </div>
+
+
+<script>
+  const dropdown = document.getElementById("expressionFormat");
+  const output = document.getElementById("output");
+
+  dropdown.addEventListener("change", function () {
+    const n = parseInt(document.getElementById("inputBits").value, 10);
+    const outputs = getTruthTableOutputs();
+    const { SOP, POS } = getSOPandPOS(n, outputs);
+    const smallest = getSmallerExpression(n, outputs);
+
+    let text = "";
+    if (this.value === "SOP") {
+      text = "Canonical SOP: " + SOP + "\n" +
+             "Simplified expression: " + smallest.expr;
+    } 
+    else if (this.value === "POS") {
+      text = "Canonical POS: " + POS + "\n" +
+             "Simplified expression: " + smallest.expr;
+    }
+    output.innerText = text;
+
+    // Only generate Verilog when SOP or POS is selected
+    const verilog = generateVerilogModule(n, smallest.expr, "logic_gen", "F");
+    document.getElementById("verilogOutput").innerText = verilog;
+
+    // Generate Verilog testbench
+    const tb = generateVerilogTestbench(n, "logic_gen", "F");
+    document.getElementById("testbenchOutput").innerText = tb;
+
+  });
+</script>
+
+        
+</body>
+</html>

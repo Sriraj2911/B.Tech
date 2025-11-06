@@ -1,0 +1,104 @@
+body{
+    text-align: center
+}
+
+table { 
+    border-collapse: collapse; 
+    margin-top: 10px; 
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 35px
+}
+
+td, th{
+    padding: 10px;
+}
+ 
+/* Lines 12 to 33 are for the border of the truth table */
+tbody tr:first-child td {
+  border-top: 2px solid black;
+}
+
+tbody td:last-child {
+  /* No border on last column */
+  border-right: none;
+}
+
+tbody td:not(:last-child):not(:nth-last-child(2)) {
+  /* Remove borders from all other columns except second last */
+  border-right: none;
+}
+
+thead th:nth-last-child(2){
+    border-right: 2px solid rgb(0, 0, 0);
+}
+
+tbody td:nth-last-child(2) {
+  border-right: 2px solid rgb(0, 0, 0); /* Border between last and second-last columns */
+}
+
+td.clickable, #ALL1, #ALL0 { cursor: pointer; }
+
+#output{
+    font-size: x-large;
+    padding-bottom: 50px;
+}
+
+#verilogBox {
+  background-color: #1e1e1e;   /* dark terminal background */
+  color: #c9d1d9;              /* light text */
+  border: 2px solid #333;      /* border around box */
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px auto;
+  width: fit-content;                  /* responsive width */
+  text-align: left;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+#verilogOutput {
+  margin: 0;
+  white-space: pre-wrap;       /* allow wrapping if line is too long */
+  word-wrap: break-word;
+}
+
+#tbBox {
+  background-color: #1e1e1e;
+  color: #c9d1d9;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px auto;
+  width: fit-content;
+  text-align: left;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* K-map styling */
+#kmapContainer { margin: 12px auto; width: 90%; text-align: center; }
+.kmap { margin: 0 auto; border-collapse: collapse; font-family: monospace; }
+.kmap th, .kmap td {
+  border: 1px solid #222;
+  padding: 8px;
+  min-width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+.kmap .label { background:#f0f0f0; font-weight:700; }
+.kmap td.kcell {
+  cursor: pointer;   /* 👈 changes cursor on hover */
+  background: #fff;
+  transition: background 0.2s ease; /* optional smooth highlight */
+}
+.kmap td.kcell:hover {
+  outline: 2px solid #666; /* optional hover highlight */
+}
+.kmap td.kcell.one { background:#dff0d8; }    /* 1 = light green */
+.kmap td.kcell.zero { background:#f2dede; }   /* 0 = light red */
+.kmap td.kcell.dc { background:#f7f7b3; }     /* X = don't-care = yellow */
+.kmap .corner { border: none; background: transparent; }
+
+
