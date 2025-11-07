@@ -43,7 +43,7 @@ int dequeue(Queue *q, int n){
     return val;
 }
 
-void addEdge(int **adj, int a, int b){
+void addEdge(int n, int adj[n][n], int a, int b){
     // adj[][] is a nxn matrix
     // a and b are assumed to be <=n
     adj[a-1][b-1] = 1;
@@ -54,7 +54,7 @@ typedef struct{
     int value, length;
 }Vertex;
 
-Vertex* bfs(int n, int **adj, int src) {
+Vertex* bfs(int n, int adj[n][n], int src) {
     int *visited = calloc(n, sizeof(int));
     Queue *q = malloc(sizeof(Queue));
     initQ(q);
@@ -81,4 +81,25 @@ Vertex* bfs(int n, int **adj, int src) {
     return vertices;
 }
 
+int main(){
+    int n, m;
+    scanf("%d\n%d", &n, &m);
+    int arr[2];
+    int adj[n][n];
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            adj[i][j] = 0;
+        }
+    }
+    for(int i=0; i<m; i++){
+        scanf("%d %d", arr, arr+1);
+        addEdge(n, adj, arr[0], arr[1]);
+    }
+    int src;
+    scanf("%d", &src);
+    Vertex *vertices = bfs(n, adj, src);
 
+    for(int i=0; i<n; i++){
+        printf("Vertex %d: Length = %d", vertices[i].value, vertices[i].length);
+    }
+}
