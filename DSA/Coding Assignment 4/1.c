@@ -44,15 +44,27 @@ int dequeue(Queue *q, int n){
     return val;
 }
 
+void printQ(Queue q, int n){
+    while(!isEmptyQ(&q)){
+        printf("%d ", dequeue(&q, n));
+    }
+    printf("\n");
+}
+
+// bool inQ(Queue *q, int ele){
+
+// }
+
 void addEdge(int n, int adj[n][n], int a, int b){
-    // adj[][] is a nxn matrix
     // a and b are assumed to be <=n
     adj[a-1][b-1] = 1;
     adj[b-1][a-1] = 1;
 }
 
 typedef struct{
-    int value, length;
+    int value; 
+    int length; // Distance from the source vertex
+    Queue q; // Queue of vertices present in the path from source
 }Vertex;
 
 Vertex* bfs(int n, int adj[n][n], int src) {
@@ -62,16 +74,22 @@ Vertex* bfs(int n, int adj[n][n], int src) {
 
     enqueue(q, src, n);
     Vertex *vertices = malloc(sizeof(Vertex)*n);
+    for(int i=0; i<n; i++){
+        initQ(&(vertices[i].q), n);
+    }
+
     vertices[src-1].value = src;
     vertices[src-1].length = 0;
     visited[src-1] = 1;
 
     while (q->front < q->rear) {
         int curr = dequeue(q, n);
+        enqueue(&(vertices[curr-1].q), curr, n);
         for (int i = 0; i < n; i++) {
             if (adj[curr-1][i] && !visited[i]) {
                 vertices[i].value = i + 1;
                 vertices[i].length = vertices[curr-1].length + 1;
+                enqueue(&(vertices[i].q), curr, n);
                 visited[i] = 1;
                 enqueue(q, i, n);
             }
@@ -101,6 +119,7 @@ int main(){
     Vertex *vertices = bfs(n, adj, src);
 
     for(int i=0; i<n; i++){
-        printf("Vertex %d: Length = %d\n", vertices[i].value, vertices[i].length);
+        printf("Vertex %d: Length = %d, Path: ", vertices[i].value, vertices[i].length);
+        printQ(vertices[i].q, n);
     }
 }
