@@ -7,7 +7,8 @@ typedef struct{
     int front, rear, count;
 }Queue;
 
-void initQ(Queue *q){
+void initQ(Queue *q, int n){
+    q->data = malloc(sizeof(int)*n);
     q->front = 0;
     q->rear = 0;
     q->count = 0;
@@ -57,7 +58,7 @@ typedef struct{
 Vertex* bfs(int n, int adj[n][n], int src) {
     int *visited = calloc(n, sizeof(int));
     Queue *q = malloc(sizeof(Queue));
-    initQ(q);
+    initQ(q, n);
 
     enqueue(q, src, n);
     Vertex *vertices = malloc(sizeof(Vertex)*n);
@@ -100,6 +101,6 @@ int main(){
     Vertex *vertices = bfs(n, adj, src);
 
     for(int i=0; i<n; i++){
-        printf("Vertex %d: Length = %d", vertices[i].value, vertices[i].length);
+        printf("Vertex %d: Length = %d\n", vertices[i].value, vertices[i].length);
     }
 }
