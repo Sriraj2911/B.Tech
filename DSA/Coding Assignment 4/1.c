@@ -3,12 +3,6 @@
 #include <stdlib.h>
 #include "DataStructures.h"
 
-void addEdge(int n, int adj[n][n], int a, int b){
-    // a and b are assumed to be <=n
-    adj[a-1][b-1] = 1;
-    adj[b-1][a-1] = 1;
-}
-
 // A new struct for the vertices
 typedef struct{
     int value; 
@@ -16,7 +10,13 @@ typedef struct{
     Queue q; // Queue of vertices present in the path from source
 }Vertex;
 
-Vertex* bfs(int n, int adj[n][n], int src) {
+void addEdge(int n, int adj[n][n], int a, int b){
+    // a and b are assumed to be <=n
+    adj[a-1][b-1] = 1;
+    adj[b-1][a-1] = 1;
+}
+
+Vertex* bfs(int n, int adj[n][n], int src){
     int *discovered = calloc(n, sizeof(int)); // An array to maintain the discovered vertices
     Queue *q = malloc(sizeof(Queue));
     initQ(q, n);
@@ -34,11 +34,11 @@ Vertex* bfs(int n, int adj[n][n], int src) {
     vertices[src-1].length = 0;
     enqueue(&(vertices[src-1].q), src, n);
 
-    while (!isEmptyQ(q)) {
+    while (!isEmptyQ(q)){
         int curr = dequeue(q, n); // Dequeuing the vertex means it has been visited
 
         for (int i = 0; i < n; i++) {
-            if (adj[curr-1][i] && !discovered[i]) {
+            if (adj[curr-1][i] && !discovered[i]){
                 discovered[i] = 1;
 
                 // Copy the path from curr to i

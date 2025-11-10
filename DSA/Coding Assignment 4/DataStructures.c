@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-//////////////////////////// QUEUE ////////////////////////////////////
+
 typedef struct{
     int *data;
     int front, rear, count;
@@ -50,7 +50,7 @@ void printQ(Queue q, int n){
     printf("\n");
 }
 
-////////////////////////// VECTOR /////////////////////////////////////////
+
 typedef struct{
     int *data; // Pointer to elements
     size_t size; // Number of elements in vector
@@ -81,4 +81,62 @@ int vector_at(Vector* vector, size_t index){
         return -1;
     }
     return vector->data[index];
+}
+
+typedef struct{
+    int u, v; // Vertices at the two ends of the edge
+    int w; // Weight of the edge
+}Edge;
+
+void swapEdge(Edge* a, Edge* b){
+    Edge temp = *a;
+    *a = *b; 
+    *b = temp;
+}
+
+void heapify(Edge* arr, int n){
+    int i = 0;
+    while (1) {
+        int left = 2*i + 1;
+        int right = 2*i + 2;
+        int smallest = i;
+
+        if (left < n && arr[left].w < arr[smallest].w)
+            smallest = left;
+        if (right < n && arr[right].w < arr[smallest].w)
+            smallest = right;
+
+        if (smallest != i) {
+            swapEdge(&arr[i], &arr[smallest]);
+            i = smallest;
+        } else break;
+    }
+}
+
+Edge deleteMin(Edge* arr, int n){
+    Edge min = arr[0];
+    swapEdge(&arr[0], &arr[n-1]);
+    heapify(arr, n-1); // Heapify only the valid part
+    return min;
+}
+
+void buildHeap(Edge* arr, int n){
+    for (int i = n/2 - 1; i >= 0; i--) {
+        int idx = i;
+        while (1) {
+            int left = 2*idx + 1;
+            int right = 2*idx + 2;
+            int smallest = idx;
+
+            if (left < n && arr[left].w < arr[smallest].w)
+                smallest = left;
+            if (right < n && arr[right].w < arr[smallest].w)
+                smallest = right;
+
+            if (smallest != idx) {
+                swapEdge(&arr[idx], &arr[smallest]);
+                idx = smallest;
+            } else break;
+        }
+    }
 }

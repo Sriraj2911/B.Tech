@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include "DataStructures.h"
 
-void addEdge(int n, int adj[n][n], int a, int b){
+void addEdge(int n, Vector adj[n], int a, int b){
     // a and b are assumed to be <=n
-    adj[a-1][b-1] = 1;
-    adj[b-1][a-1] = 1;
+    push_back(&adj[a-1], b);
+    push_back(&adj[b-1], a);
 }
 
 typedef struct{
@@ -11,10 +12,9 @@ typedef struct{
     int w; // Weight of the edge
 }Edge;
 
-// struct Vector{
-//     int size;
-//     int array[size];
-// };
+Edge* Prims(int n, Vector adj[n], int m, int arr[m]){
+    
+}
 
 int main(){
     int n, m;

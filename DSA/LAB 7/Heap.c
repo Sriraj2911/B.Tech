@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void swap(int* a, int* b){
+void swapEdge(int* a, int* b){
     int temp = *a;
     *a = *b; 
     *b = temp;
@@ -20,7 +20,7 @@ void heapify(int* arr, int n){
             smallest = right;
 
         if (smallest != i) {
-            swap(&arr[i], &arr[smallest]);
+            swapEdge(&arr[i], &arr[smallest]);
             i = smallest;
         } else break;
     }
@@ -28,7 +28,7 @@ void heapify(int* arr, int n){
 
 int deleteMin(int* arr, int n){
     int min = arr[0];
-    swap(&arr[0], &arr[n-1]);
+    swapEdge(&arr[0], &arr[n-1]);
     heapify(arr, n-1); // Heapify only the valid part
     return min;
 }
@@ -47,7 +47,7 @@ void buildHeap(int* arr, int n){
                 smallest = right;
 
             if (smallest != idx) {
-                swap(&arr[idx], &arr[smallest]);
+                swapEdge(&arr[idx], &arr[smallest]);
                 idx = smallest;
             } else break;
         }

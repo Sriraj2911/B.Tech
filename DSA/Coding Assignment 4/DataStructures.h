@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-
+//////////////////////// QUEUE ///////////////////////////
 typedef struct{
     int *data;
     int front, rear, count;
@@ -16,6 +16,7 @@ void enqueue(Queue *q, int ele, int n);
 int dequeue(Queue *q, int n);
 void printQ(Queue q, int n);
 
+////////////////////// VECTOR ///////////////////////////
 typedef struct{
     int *data; // Pointer to elements
     size_t size; // Number of elements in vector
@@ -25,5 +26,11 @@ typedef struct{
 Vector* create_vector();
 void push_back(Vector* vector, int value);
 int vector_at(Vector* vector, size_t index);
+
+////////////////////// HEAP ///////////////////////////
+void swapEdge(int* a, int* b);
+void heapify(int* arr, int n);
+int deleteMin(int* arr, int n);
+void buildHeap(int* arr, int n)
 
 #endif
