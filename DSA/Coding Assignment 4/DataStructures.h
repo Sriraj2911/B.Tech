@@ -16,4 +16,14 @@ void enqueue(Queue *q, int ele, int n);
 int dequeue(Queue *q, int n);
 void printQ(Queue q, int n);
 
+typedef struct{
+    int *data; // Pointer to elements
+    size_t size; // Number of elements in vector
+    size_t capacity; // Allocated capacity
+}Vector;
+
+Vector* create_vector();
+void push_back(Vector* vector, int value);
+int vector_at(Vector* vector, size_t index);
+
 #endif

@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+//////////////////////////// QUEUE ////////////////////////////////////
 typedef struct{
     int *data;
     int front, rear, count;
@@ -47,4 +48,37 @@ void printQ(Queue q, int n){
         printf("%d ", dequeue(&q, n));
     }
     printf("\n");
+}
+
+////////////////////////// VECTOR /////////////////////////////////////////
+typedef struct{
+    int *data; // Pointer to elements
+    size_t size; // Number of elements in vector
+    size_t capacity; // Allocated capacity
+}Vector;
+
+// Create an empty vector
+Vector* create_vector(){
+    Vector* vector = malloc(sizeof(Vector));
+    vector->data = NULL;
+    vector->size = 0;
+    vector->capacity = 0;
+    return vector;
+}
+
+// Add an element at the end
+void push_back(Vector* vector, int value){
+    if(vector->size == vector->capacity){
+        vector->capacity = vector->capacity ? vector->capacity*2 : 1;
+        vector->data = realloc(vector->data, vector->capacity * sizeof(int));
+    }
+    vector->data[vector->size++] = value;
+}
+
+// Get element at index
+int vector_at(Vector* vector, size_t index){
+    if(index >= vector->size){
+        return -1;
+    }
+    return vector->data[index];
 }
