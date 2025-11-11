@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
-
+///////////////////////////// QUEUE /////////////////////////////////
 typedef struct{
     int *data;
     int front, rear, count;
@@ -50,37 +51,47 @@ void printQ(Queue q, int n){
     printf("\n");
 }
 
+///////////////////////////// VECTOR /////////////////////////////////
+
+typedef struct {
+    void *data;         // pointer to the array
+    size_t elementSize; // size of each element
+    size_t size;        // number of elements used
+    size_t capacity;    // allocated capacity
+} Vector;
+
+void initVector(Vector *v, size_t elementSize) {
+    v->data = NULL;
+    v->elementSize = elementSize;
+    v->size = 0;
+    v->capacity = 0;
+}
+
+void push_back(Vector *v, void *element) {
+    if (v->size == v->capacity) {
+        v->capacity = (v->capacity == 0) ? 1 : v->capacity * 2;
+        v->data = realloc(v->data, v->capacity * v->elementSize);
+    }
+    memcpy((char*)v->data + v->size * v->elementSize, element, v->elementSize);
+    v->size++;
+}
+
+void *get(Vector *v, size_t index) {
+    if (index >= v->size) return NULL;
+    return (char*)v->data + index * v->elementSize;
+}
+
+void freeVector(Vector *v) {
+    free(v->data);
+    v->data = NULL;
+    v->size = v->capacity = 0;
+}
+
+/////////////////////////// HEAP //////////////////////////////////////
 typedef struct{
     int u, v; // Vertices at the two ends of the edge
     int w; // Weight of the edge
 }Edge;
-
-typedef struct{
-    Edge *data; // Pointer to elements
-    size_t size; // Number of elements in vector
-    size_t capacity; // Allocated capacity
-}Vector;
-
-// Create an empty vector
-void initVector(Vector* vector, int capacity){
-    vector->data = malloc(sizeof(Edge)*capacity);
-    vector->size = 0;
-    vector->capacity = capacity;
-}
-
-// Add an element at the end
-void push_back(Vector* vector, Edge edge){
-    if(vector->size == vector->capacity){
-        vector->capacity = vector->capacity ? vector->capacity*2 : 1;
-        vector->data = realloc(vector->data, vector->capacity * sizeof(Edge));
-    }
-    vector->data[vector->size++] = edge;
-}
-
-void freeVector(Vector* vector){
-    free(vector->data);
-}
-
 
 void swapEdge(Edge* a, Edge* b){
     Edge temp = *a;

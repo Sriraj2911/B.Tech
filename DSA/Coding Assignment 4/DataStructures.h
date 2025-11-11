@@ -9,8 +9,6 @@ typedef struct{
     int front, rear, count;
 }Queue;
 
-
-
 void initQ(Queue *q, int n);
 bool isEmptyQ(Queue *q);
 bool isFullQ(Queue *q, int n);
@@ -19,22 +17,24 @@ int dequeue(Queue *q, int n);
 void printQ(Queue q, int n);
 
 ////////////////////// VECTOR ///////////////////////////
+typedef struct {
+    void *data;         // pointer to the array
+    size_t elementSize; // size of each element
+    size_t size;        // number of elements used
+    size_t capacity;    // allocated capacity
+} Vector;
+
+Vector* initVector(Vector* v, size_t elementSize);
+void push_back(Vector* v, void* element);
+void *get(Vector *v, size_t index);
+void freeVector(Vector* v);
+
+////////////////////// HEAP ///////////////////////////
 typedef struct{
     int u, v; // Vertices at the two ends of the edge
     int w; // Weight of the edge
 }Edge;
 
-typedef struct{
-    Edge *data; // Pointer to elements
-    size_t size; // Number of elements in vector
-    size_t capacity; // Allocated capacity
-}Vector;
-
-Vector* initVector(Vector* vector, int capacity);
-void push_back(Vector* vector, Edge edge);
-void freeVector(Vector* vector);
-
-////////////////////// HEAP ///////////////////////////
 void swapEdge(Edge* a, Edge* b);
 void heapify(Edge* arr, int n);
 Edge deleteMin(Edge* arr, int n);

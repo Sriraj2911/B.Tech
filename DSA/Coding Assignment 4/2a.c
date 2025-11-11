@@ -7,8 +7,8 @@
 void addEdge(int n, Vector adj[n], int a, int b, int w){
     Edge e1 = {a, b, w};
     Edge e2 = {b, a, w};
-    push_back(&adj[a-1], e1);
-    push_back(&adj[b-1], e2);
+    push_back(&adj[a-1], &e1);
+    push_back(&adj[b-1], &e2);
 }
 
 // Return the array of edges in the MST
@@ -25,7 +25,7 @@ Edge* prims(int n, Vector adj[n], int m, Edge edges[m]){
     int heapSize = 0;
     // Copy all the edges from src into heap
     for(int i=0; i<adj[src-1].size; i++){
-        heap[heapSize++] = adj[src-1].data[i];
+        heap[heapSize++] = ((Edge *)adj[src-1].data)[i];
     }
     buildHeap(heap, heapSize);
 
@@ -45,7 +45,7 @@ Edge* prims(int n, Vector adj[n], int m, Edge edges[m]){
         MST[MSTcount++] = minE; // Push the valid edge
 
         for(int i=0; i<adj[next-1].size; i++){
-            Edge e = adj[next-1].data[i];
+            Edge e = ((Edge *)adj[next-1].data)[i];
             if(!visited[e.v-1] || !visited[e.u-1]){
                 heap[heapSize++] = e; // Push the edge onto the heap if the other end is unvisited
             }
@@ -62,7 +62,7 @@ int main(){
 
     Vector adj[n];
     for(int i=0; i<n; i++){
-        initVector(&adj[i], 1);
+        initVector(&adj[i], sizeof(Edge));
     }
 
     Edge edges[m];
