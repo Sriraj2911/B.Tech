@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "DataStructures.h"
 
-// A new struct for the vertices
+// A struct for the vertices
 typedef struct{
     int value; 
     int length; // Distance from the source vertex

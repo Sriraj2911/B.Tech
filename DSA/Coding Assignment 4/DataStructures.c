@@ -50,43 +50,37 @@ void printQ(Queue q, int n){
     printf("\n");
 }
 
+typedef struct{
+    int u, v; // Vertices at the two ends of the edge
+    int w; // Weight of the edge
+}Edge;
 
 typedef struct{
-    int *data; // Pointer to elements
+    Edge *data; // Pointer to elements
     size_t size; // Number of elements in vector
     size_t capacity; // Allocated capacity
 }Vector;
 
 // Create an empty vector
-Vector* create_vector(){
-    Vector* vector = malloc(sizeof(Vector));
-    vector->data = NULL;
+void initVector(Vector* vector, int capacity){
+    vector->data = malloc(sizeof(Edge)*capacity);
     vector->size = 0;
-    vector->capacity = 0;
-    return vector;
+    vector->capacity = capacity;
 }
 
 // Add an element at the end
-void push_back(Vector* vector, int value){
+void push_back(Vector* vector, Edge edge){
     if(vector->size == vector->capacity){
         vector->capacity = vector->capacity ? vector->capacity*2 : 1;
-        vector->data = realloc(vector->data, vector->capacity * sizeof(int));
+        vector->data = realloc(vector->data, vector->capacity * sizeof(Edge));
     }
-    vector->data[vector->size++] = value;
+    vector->data[vector->size++] = edge;
 }
 
-// Get element at index
-int vector_at(Vector* vector, size_t index){
-    if(index >= vector->size){
-        return -1;
-    }
-    return vector->data[index];
+void freeVector(Vector* vector){
+    free(vector->data);
 }
 
-typedef struct{
-    int u, v; // Vertices at the two ends of the edge
-    int w; // Weight of the edge
-}Edge;
 
 void swapEdge(Edge* a, Edge* b){
     Edge temp = *a;
