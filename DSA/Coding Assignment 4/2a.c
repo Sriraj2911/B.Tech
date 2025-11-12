@@ -62,7 +62,7 @@ int main(){
 
     Vector adj[n];
     for(int i=0; i<n; i++){
-        initVector(&adj[i], sizeof(Edge));
+        initVector(&adj[i], sizeof(Edge)); // Initialise each vector as a vector of edges
     }
 
     Edge edges[m];
