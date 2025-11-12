@@ -8,7 +8,7 @@
         "name": "(gdb) Launch",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/DSA/Coding Assignment 4/2b",
+        "program": "${workspaceFolder}/DSA/Coding Assignment 4/3",
         "args": [],
         "stopAtEntry": true,
         "cwd": "${fileDirname}",

@@ -29,15 +29,15 @@ void push_back(Vector* v, void* element);
 void *get(Vector *v, size_t index);
 void freeVector(Vector* v);
 
-////////////////////// HEAP ///////////////////////////
+////////////////////// EDGE HEAP ///////////////////////////
 typedef struct{
     int u, v; // Vertices at the two ends of the edge
     int w; // Weight of the edge
 }Edge;
 
 void swapEdge(Edge* a, Edge* b);
-void heapify(Edge* arr, int n);
-Edge deleteMin(Edge* arr, int n);
-void buildHeap(Edge* arr, int n);
+void heapifyEdge(Edge* arr, int n);
+Edge deleteMinEdge(Edge* arr, int n);
+void buildEdgeHeap(Edge* arr, int n);
 
 #endif

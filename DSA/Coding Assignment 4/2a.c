@@ -27,11 +27,11 @@ Edge* prims(int n, Vector adj[n], int m, Edge edges[m]){
     for(int i=0; i<adj[src-1].size; i++){
         heap[heapSize++] = ((Edge *)adj[src-1].data)[i];
     }
-    buildHeap(heap, heapSize);
+    buildEdgeHeap(heap, heapSize);
 
 
     while(heapSize>0 && MSTcount<n-1){
-        Edge minE = deleteMin(heap, heapSize--);
+        Edge minE = deleteMinEdge(heap, heapSize--);
         int u = minE.u;
         int v = minE.v;
         // Skip edges with both vertices already visited
@@ -50,7 +50,7 @@ Edge* prims(int n, Vector adj[n], int m, Edge edges[m]){
                 heap[heapSize++] = e; // Push the edge onto the heap if the other end is unvisited
             }
         }
-        buildHeap(heap, heapSize);
+        buildEdgeHeap(heap, heapSize);
     }
     free(heap);
     return MST;

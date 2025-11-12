@@ -52,7 +52,6 @@ void printQ(Queue q, int n){
 }
 
 ///////////////////////////// VECTOR /////////////////////////////////
-
 typedef struct {
     void *data;         // pointer to the array
     size_t elementSize; // size of each element
@@ -87,7 +86,7 @@ void freeVector(Vector *v) {
     v->size = v->capacity = 0;
 }
 
-/////////////////////////// HEAP //////////////////////////////////////
+/////////////////////////// EDGE HEAP //////////////////////////////////////
 typedef struct{
     int u, v; // Vertices at the two ends of the edge
     int w; // Weight of the edge
@@ -99,7 +98,7 @@ void swapEdge(Edge* a, Edge* b){
     *b = temp;
 }
 
-void heapify(Edge* arr, int n){
+void heapifyEdge(Edge* arr, int n){
     int i = 0;
     while (1) {
         int left = 2*i + 1;
@@ -118,14 +117,14 @@ void heapify(Edge* arr, int n){
     }
 }
 
-Edge deleteMin(Edge* arr, int n){
+Edge deleteMinEdge(Edge* arr, int n){
     Edge min = arr[0];
     swapEdge(&arr[0], &arr[n-1]);
-    heapify(arr, n-1); // Heapify only the valid part
+    heapifyEdge(arr, n-1); // Heapify only the valid part
     return min;
 }
 
-void buildHeap(Edge* arr, int n){
+void buildEdgeHeap(Edge* arr, int n){
     for (int i = n/2 - 1; i >= 0; i--) {
         int idx = i;
         while (1) {

@@ -62,7 +62,7 @@ void addEdge(int n, Vector adj[n], int a, int b, int w){
 }
 
 Edge* kruskals(int n, Vector adj[n], int m, Edge edges[m]){
-    buildHeap(edges, m); // Heapify the edges according to weight
+    buildEdgeHeap(edges, m); // Heapify the edges according to weight
 
     Edge* MST = malloc(sizeof(Edge)*(n-1));
     int MSTcount = 0;
@@ -71,7 +71,7 @@ Edge* kruskals(int n, Vector adj[n], int m, Edge edges[m]){
     set = createSet(n);
 
     while(MSTcount < n && m > 0){
-        Edge minE = deleteMin(edges, m--);
+        Edge minE = deleteMinEdge(edges, m--);
         int u = minE.u;
         int v = minE.v;
         int w = minE.w;
