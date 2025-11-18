@@ -31,14 +31,14 @@ Edge* prims(int n, Vector adj[n], int m, Edge edges[m]){
 
 
     while(heapSize>0 && MSTcount<n-1){
-        Edge minE = deleteMinEdge(heap, heapSize--);
+        Edge minE = deleteMinEdge(heap, heapSize--); // The edge with least weight
         int u = minE.u;
         int v = minE.v;
         // Skip edges with both vertices already visited
         if(visited[u-1]==1 && visited[v-1]==1){
             continue;
         }
-        // Pick the next vertex, which should be unvisited
+        // Pick the next vertex (which should be unvisited)
         int next = visited[u-1] ? v : u;
         visited[next-1] = 1;
 
